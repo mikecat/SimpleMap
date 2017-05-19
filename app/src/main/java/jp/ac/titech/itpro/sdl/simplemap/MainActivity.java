@@ -27,6 +27,7 @@ import com.google.android.gms.maps.model.LatLng;
 
 public class MainActivity extends AppCompatActivity implements
         GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener, View.OnClickListener {
+    private final static LatLng DEFAULT_LOCATION = new LatLng(35.604667, 139.682759);
     private final static String TAG = "MainActivity";
 
     private GoogleMap googleMap;
@@ -57,7 +58,7 @@ public class MainActivity extends AppCompatActivity implements
         mapFragment.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(GoogleMap map) {
-                map.moveCamera(CameraUpdateFactory.zoomTo(15f));
+                map.moveCamera(CameraUpdateFactory.newLatLngZoom(DEFAULT_LOCATION, 15f));
                 googleMap = map;
             }
         });
