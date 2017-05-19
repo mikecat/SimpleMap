@@ -167,9 +167,17 @@ public class MainActivity extends AppCompatActivity implements
     public void onClick(View view) {
         switch(view.getId()) {
             case R.id.move_button:
-                googleMap.animateCamera(CameraUpdateFactory
-                        .newLatLng(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude())));
+                moveCameraToLocation(currentLocation);
                 break;
+        }
+    }
+
+    private void moveCameraToLocation(Location location) {
+        if (location != null) {
+            googleMap.animateCamera(CameraUpdateFactory
+                    .newLatLng(new LatLng(location.getLatitude(), location.getLongitude())));
+        } else {
+            Toast.makeText(this, getText(R.string.no_location_info), Toast.LENGTH_SHORT).show();
         }
     }
 }
