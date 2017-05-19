@@ -141,6 +141,15 @@ public class MainActivity extends AppCompatActivity implements
         }
     }
 
+    @Override
+    public void onClick(View view) {
+        switch(view.getId()) {
+            case R.id.move_button:
+                moveCameraToLocation(currentLocation);
+                break;
+        }
+    }
+
     private void startLocationUpdate(boolean reqPermission) {
         Log.d(TAG, "startLocationUpdate: " + reqPermission);
         for (String permission : PERMISSIONS) {
@@ -162,15 +171,6 @@ public class MainActivity extends AppCompatActivity implements
         Log.d(TAG, "stopLocationUpdate");
         LocationServices.FusedLocationApi.removeLocationUpdates(googleApiClient, this);
         state = UpdatingState.STOPPED;
-    }
-
-    @Override
-    public void onClick(View view) {
-        switch(view.getId()) {
-            case R.id.move_button:
-                moveCameraToLocation(currentLocation);
-                break;
-        }
     }
 
     private void moveCameraToLocation(LatLng latLng) {
