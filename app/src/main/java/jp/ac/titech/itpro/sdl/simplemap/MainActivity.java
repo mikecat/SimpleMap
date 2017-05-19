@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity implements
     private GoogleApiClient googleApiClient;
     private LocationRequest locationRequest;
 
-    private Location currentLocation = null;
+    private LatLng currentLocation = null;
 
     private enum UpdatingState {STOPPED, REQUESTING, STARTED}
 
@@ -126,7 +126,7 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     public void onLocationChanged(Location location) {
         Log.d(TAG, "onLocationChanged: " + location);
-        currentLocation = location;
+        currentLocation = new LatLng(location.getLatitude(), location.getLongitude());
     }
 
     @Override
@@ -172,10 +172,9 @@ public class MainActivity extends AppCompatActivity implements
         }
     }
 
-    private void moveCameraToLocation(Location location) {
-        if (location != null) {
-            googleMap.animateCamera(CameraUpdateFactory
-                    .newLatLng(new LatLng(location.getLatitude(), location.getLongitude())));
+    private void moveCameraToLocation(LatLng latLng) {
+        if (latLng != null) {
+            googleMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
         } else {
             Toast.makeText(this, getText(R.string.no_location_info), Toast.LENGTH_SHORT).show();
         }
